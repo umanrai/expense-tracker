@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Header = () => {
+const Header = (props) => {
+
   return (
     <h2>
-      Expense Tracker
+      {props.title}
     </h2>
   )
 }

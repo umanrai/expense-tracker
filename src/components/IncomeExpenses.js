@@ -1,12 +1,15 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState';
 
+import { fetchAmounts, totalAmounts } from '../utils';
+import BoxWidget from './partials/BoxWidget';
+
 const IncomeExpenses = () => {
     const { transactions } = useContext(GlobalContext);
 
-    const amounts = transactions.map(transaction => transaction.amount);
+    const amounts = fetchAmounts(transactions);
 
-    const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const total = totalAmounts(amounts);
 
     const income = amounts
         .filter(item => item > 0)
@@ -21,14 +24,18 @@ const IncomeExpenses = () => {
     return (
 
         <div className="inc-exp-container">
-            <div>
+
+            <BoxWidget classes="plus" title="Income" num={income} />
+            <BoxWidget classes="minus" title="Expense" num={expense} />
+
+            {/* <div>
                 <h4>Income</h4>
-                <p className="money plus">रू{ income }</p>
+                <Paragraph classes="money plus" text={"रू" + income} />
             </div>
             <div>
                 <h4>Expense</h4>
-                <p className="money minus">रू{ expense }</p>
-            </div>
+                <Paragraph classes="money minus" text={"रू" + expense} />
+            </div> */}
         </div>
 
 
